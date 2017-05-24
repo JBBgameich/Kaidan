@@ -1,6 +1,7 @@
 language: cpp
 before_install: ./scripts/install.sh
 script: ./scripts/build.sh
+dist: trusty
 sudo: required
 notifications:
   email: false
