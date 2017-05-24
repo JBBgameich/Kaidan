@@ -94,7 +94,7 @@ echo "updating the pbuilder env, then starting the actual build"
 
 sudo pbuilder update  --basetgz cache/$pbuilder_basetgz;
 
-sudo pbuilder build --basetgz cache/$pbuilder_basetgz $pkgname`echo _`$version+git`date +%Y%m%d`-1.dsc;
+sudo pbuilder build $pkgname`echo _`$version+git`date +%Y%m%d`-1.dsc --basetgz cache/$pbuilder_basetgz;
 
 echo " ";
 echo "Now running lintian tests on the package";
