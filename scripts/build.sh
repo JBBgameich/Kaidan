@@ -1,15 +1,15 @@
 #!/bin/bash
 
-export pkgname kaidan
-export user kaidanim
-export version 0.2.0-dev
-export project kaidan
-export deb_pkg_user kaidanim 
-export deb_pkg_repo packaging_deb
-export host github.com
-export deb_pkg_host github.com
-export pbuilder_basetgz kaidan-debian-sid.tgz
-export pbuilder_basetgz_host
+export pkgname=kaidan
+export user=kaidanim
+export version=0.2.0-dev
+export project=kaidan
+export deb_pkg_user=kaidanim 
+export deb_pkg_repo=packaging_deb
+export host=github.com
+export deb_pkg_host=github.com
+export pbuilder_basetgz=kaidan-debian-sid.tgz
+export pbuilder_basetgz_url=https://archive.org/download/debian-sid-build-env
 
 
 rm cache -rf; rm $pkgname -r;
@@ -71,8 +71,6 @@ echo " ";
 
 dch -v $version+git`date +%Y%m%d`-1 'New git snapshot build';
 
-cd $pkgname;
-
 echo " ";
 echo "Creating debian source package";
 echo " ";
@@ -84,15 +82,19 @@ echo "Building package with pbuilder";
 echo " ";
 
 cd ../cache;
-# enable the next line for downloading a pbuilder env from a remote server
-#wget $pbuilder_basetgz_host/$pbuilder_basetgz;
+wget $pbuilder_basetgz_url/$pbuilder_basetgz;
+
 cd ../$pkgname;
 
 cd ..;
 
 echo "Building in path `pwd`";
 
-sudo pbuilder build --basetgz $pbuilder_basetgz $pkgname`echo _`$version+git`date +%Y%m%d`-1.dsc;
+echo "updating the pbuilder env, then starting the actual build"
+
+sudo pbuilder update  --basetgz cache/$pbuilder_basetgz;
+
+sudo pbuilder build --basetgz cache/$pbuilder_basetgz $pkgname`echo _`$version+git`date +%Y%m%d`-1.dsc;
 
 echo " ";
 echo "Now running lintian tests on the package";
