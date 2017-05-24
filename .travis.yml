@@ -1,0 +1,6 @@
+language: cpp
+before_install: ./scripts/install.sh
+script: ./scripts/build.sh
+sudo: required
+notifications:
+  email: false
