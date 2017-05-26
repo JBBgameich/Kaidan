@@ -1,7 +1,7 @@
 #!/bin/bash
 
 export pkgname=kaidan
-export project=kaidan
+export project=Kaidan
 export version=0.2.0-dev
 export deb_pkg_user=kaidanim 
 export deb_pkg_repo=packaging_deb
@@ -9,11 +9,9 @@ export deb_pkg_host=github.com
 export pbuilder_basetgz=kaidan-debian-sid.tgz
 export pbuilder_basetgz_url=https://archive.org/download/debian-sid-build-env
 
-echo "Starting build in `pwd`"
-mv ../ $project;
-mkdir ../../cache;
-cd ../; rm -rf .git .travis.yml;
-
+echo "Starting build in `pwd`";
+mkdir ../cache;
+rm -rf .git .travis.yml;
 
 echo " ";
 echo "Compressing to tar.gz"
