@@ -88,11 +88,11 @@ Kirigami.Page {
 					width: messageText.width + 12
 					height: messageText.height + 6
 
-					radius: 2
+					radius: 6
 					border.width: 1
 					border.color: "#E1DFDF"
 
-					color: sentByMe ? "lightgrey" : "steelblue"
+					color: sentByMe ? Kirigami.Theme.highlightColor : Kirigami.Theme.linkColor
 
 					Kirigami.Label {
 						id: messageText
@@ -101,12 +101,11 @@ Kirigami.Page {
 
 						text: model.message
 						wrapMode: Text.Wrap
-						color: sentByMe ? "black" : "white"
 					}
 
 					Component.onCompleted: {
-						if (messageText.paintedWidth > 190) {
-							messageText.width = 190
+						if (messageText.paintedWidth > Kirigami.Units.gridUnit * 15) {
+							messageText.width = Kirigami.Units.gridUnit * 15
 						}
 					}
 				}
