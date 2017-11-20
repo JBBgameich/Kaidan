@@ -4,7 +4,7 @@ echo "*****************************************"
 
 apt update
 
-apt install software-properties-common dirmngr gnupg ca-certificates -y
+apt install software-properties-common dirmngr gnupg ca-certificates wget -y
 
 apt-key adv --recv-key "210EB0BCA70439F0"
 echo deb https://raw.githubusercontent.com/kaidanim/packages/master sid main >> /etc/apt/sources.list
