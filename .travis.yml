@@ -18,6 +18,8 @@ addons:
       - qt5-default
       - qtquickcontrols2-5-dev
       - kirigami2-dev
+      - ubuntu-archive-keyring
+
 script:
   - cd utils
   - travis-build.sh
