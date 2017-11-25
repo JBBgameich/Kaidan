@@ -1,7 +1,10 @@
+sudo: required
+
 addons:
   apt:
     sources:
       - debian-sid
+      - key_id
     packages:
       - cmake
       - build-essential
@@ -19,6 +22,9 @@ addons:
       - qtquickcontrols2-5-dev
       - kirigami2-dev
       - ubuntu-archive-keyring
+
+before-install:
+    - sudo apt-key adv --recv 7638D0442B90D010
 
 script:
   - cd utils
