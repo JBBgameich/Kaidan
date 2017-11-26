@@ -22,8 +22,9 @@ addons:
       - kirigami2-dev
 
 before-install:
+    - sudo apt-get update
+    - sudo apt-get full-upgrade
     - sudo apt-key adv --recv 7638D0442B90D010
-    - echo APT {\    Get {\      APT::Force-LoopBreak\   };\}; >> /etc/apt/apt.conf
 
 script:
   - cd utils
