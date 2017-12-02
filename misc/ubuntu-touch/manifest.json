@@ -1,0 +1,14 @@
+{
+    "name": "kaidan.kaidanim",
+    "description": "Simple and user-friendly Jabber/XMPP client for every device ",
+    "architecture": "armhf",
+    "title": "Kaidan",
+    "hooks": {
+        "kaidan": {
+            "desktop": "kaidan.desktop",
+            "apparmor": "apparmor.json"
+        }
+    },
+    "version": "0.3.2",
+    "maintainer": "Kaidan developers <gamerbude@lnj.li>"
+}

@@ -1,0 +1,15 @@
+{
+  "template": "custom",
+  "dir": "./bin/ubuntu-touch/",
+  "build": "../../utils/build-click.sh",
+  "kill": "kaidan",
+  "sdk": "ubuntu-sdk-16.04",
+  "dependencies": [
+    "qtquickcontrols2-5-dev",
+    "libgnutls28-dev",
+    "libidn11-dev",
+    "zlib1g-dev",
+    "libtool",
+    "autoconf"
+  ]
+}
