@@ -36,6 +36,10 @@
 // Kaidan
 #include "Kaidan.h"
 
+#ifdef QMAKE_BUILD
+#include "./3rdparty/kirigami/src/kirigamiplugin.h"
+#endif
+
 enum CommandLineParseResult {
 	CommandLineOk,
 	CommandLineError,
@@ -92,8 +96,7 @@ int main(int argc, char *argv[])
 	// Kaidan-Translator
 	QTranslator kaidanTranslator;
 	// load the systems locale or none
-	kaidanTranslator.load(QString(APPLICATION_NAME) + "_" + QLocale::system().name(),
-	                      ":/i18n"); // load the qm files via. rcc (bundled in binary)
+	kaidanTranslator.load(QLocale::system().name(), ":/i18n"); // load qm files from resources
 	app.installTranslator(&kaidanTranslator);
 
 
@@ -142,6 +145,11 @@ int main(int argc, char *argv[])
 #endif
 
 	QQmlApplicationEngine engine;
+    
+#ifdef QMAKE_BUILD
+    KirigamiPlugin::getInstance().registerTypes();
+#endif
+    
 	engine.rootContext()->setContextProperty("kaidan", &kaidan);
 
 	engine.load(QUrl("qrc:/qml/main.qml"));
