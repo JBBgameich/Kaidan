@@ -69,7 +69,7 @@ Kirigami.Page {
 			model: kaidan.messageModel
 
 			delegate: ChatMessage {
-				sentByMe: model.recipient != kaidan.jid
+                sentByMe: model.recipient !== kaidan.jid
 				messageBody: model.message
 				dateTime: new Date(timestamp)
 				isRead: model.isDelivered
@@ -97,12 +97,15 @@ Kirigami.Page {
 			RowLayout {
 				width: parent.width
 
-				Controls.TextArea {
+                Controls.TextField {
 					id: messageField
 					Layout.fillWidth: true
 					placeholderText: qsTr("Compose message")
 					wrapMode: Controls.TextArea.Wrap
 					selectByMouse: true
+                    onAccepted: {
+                        sendButton.onClicked()
+                    }
 				}
 
 				Controls.Button {

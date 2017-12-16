@@ -17,55 +17,64 @@
  *  along with Kaidan. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.1
-import QtQuick.Layouts 1.2
-import QtQuick.Controls 2.0 as Controls
+import QtQuick 2.9
+import QtQuick.Layouts 1.3
+import QtQuick.Controls 2.2 as Controls
 import org.kde.kirigami 2.0 as Kirigami
 
 Kirigami.Page {
 	id: aboutPage
 	title: qsTr("About")
 
-	Column {
-		width: parent.width
+    ColumnLayout {
+        anchors.fill: parent
+        spacing: 10
 
 		Image {
-			source: kaidan.getResourcePath("images/kaidan.svg")
-			height: aboutPage.height * 0.5
+            source: kaidan.getResourcePath("icons/kaidan.svg")
+            Layout.preferredHeight: aboutPage.height * 0.3
+            Layout.maximumHeight: 300
 			fillMode: Image.PreserveAspectFit
-			anchors.horizontalCenter: parent.horizontalCenter
+            Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
+            mipmap: true
+            sourceSize: Qt.size(width, height)
 		}
 
 		Kirigami.Heading {
 			text: "Kaidan " + kaidan.getVersionString()
-			anchors.horizontalCenter: parent.horizontalCenter
+            Layout.fillWidth: true
+            horizontalAlignment: Qt.AlignHCenter
 		}
 
         Controls.Label {
 			text: qsTr("A simple, user-friendly Jabber/XMPP client")
-			anchors.horizontalCenter: parent.horizontalCenter
+            Layout.fillWidth: true
+            horizontalAlignment: Qt.AlignHCenter
 		}
 
         Controls.Label {
 			text: qsTr("License:") + " GPLv3+ / CC BY-SA 4.0"
-			anchors.horizontalCenter: parent.horizontalCenter
+            Layout.fillWidth: true
+            horizontalAlignment: Qt.AlignHCenter
 		}
 
         Controls.Label {
 			text: "Copyright (C) 2016-2017 Kaidan developers and contributors"
-			anchors.horizontalCenter: parent.horizontalCenter
+            Layout.fillWidth: true
+            horizontalAlignment: Qt.AlignHCenter
 		}
 
 		Controls.ToolButton {
-			text: qsTr("Sourcecode on Github")
+            text: qsTr("Source code on Github")
 			onClicked: Qt.openUrlExternally("https://github.com/KaidanIM/Kaidan")
-			anchors.horizontalCenter: parent.horizontalCenter
+            Layout.fillWidth: true
+            Layout.alignment: Qt.AlignHCenter
 		}
 
 		Controls.Button {
 			id: closeButton
 			text: qsTr("Close")
-			anchors.horizontalCenter: parent.horizontalCenter
+            Layout.alignment: Qt.AlignHCenter
 			onClicked: {
 				closeButton.enabled = false;
 				pageStack.pop();

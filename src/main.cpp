@@ -35,9 +35,14 @@
 #include <QtQml>
 // Kaidan
 #include "Kaidan.h"
+#include "StatusBar.h"
 
 #ifdef QMAKE_BUILD
 #include "./3rdparty/kirigami/src/kirigamiplugin.h"
+#endif
+
+#ifdef Q_OS_ANDROID
+#include <QtAndroid>
 #endif
 
 enum CommandLineParseResult {
@@ -144,6 +149,8 @@ int main(int argc, char *argv[])
 	}
 #endif
 
+    qmlRegisterType<StatusBar>("StatusBar", 0, 1, "StatusBar");
+
 	QQmlApplicationEngine engine;
     
 #ifdef QMAKE_BUILD
@@ -153,10 +160,13 @@ int main(int argc, char *argv[])
 	engine.rootContext()->setContextProperty("kaidan", &kaidan);
 
 	engine.load(QUrl("qrc:/qml/main.qml"));
-	QObject *topLevel = engine.rootObjects().value(0);
-	QQuickWindow *window = qobject_cast<QQuickWindow*>(topLevel);
+    if(engine.rootObjects().isEmpty())
+        return -1;
 
-	window->show();
+#ifdef Q_OS_ANDROID
+    //TODO: use QQmlApplicationEngine::objectCreated to ensure QML was actually loaded?
+    QtAndroid::hideSplashScreen();
+#endif
 
 	// execute the app
 	return app.exec();

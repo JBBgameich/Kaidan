@@ -20,7 +20,8 @@ SOURCES += \
     src/PresenceHandler.cpp \
     src/ServiceDiscoveryManager.cpp \
     src/VCardManager.cpp \
-    src/XmlLogHandler.cpp
+    src/XmlLogHandler.cpp \
+    src/StatusBar.cpp
 
 HEADERS += \
     src/Database.h \
@@ -37,7 +38,8 @@ HEADERS += \
     src/MessageHandler.h \
     src/Kaidan.h \
     src/VCardManager.h \
-    src/branding.h
+    src/branding.h \
+    src/StatusBar.h
 
 android: INCLUDEPATH += $$PWD/prebuilt/libgloox/android/$$ANDROID_TARGET_ARCH/include
 android: LIBS += -L$$PWD/prebuilt/libgloox/android/$$ANDROID_TARGET_ARCH/lib/
@@ -86,7 +88,31 @@ DISTFILES += \
     android/res/values/libs.xml \
     android/build.gradle \
     android/gradle/wrapper/gradle-wrapper.properties \
-    android/gradlew.bat
+    android/gradlew.bat \
+    android/AndroidManifest.xml \
+    android/gradle/wrapper/gradle-wrapper.jar \
+    android/gradlew \
+    android/res/drawable/splash.xml \
+    android/res/values/colors.xml \
+    android/res/values/libs.xml \
+    android/res/values/theme.xml \
+    android/res/mipmap-hdpi/icon.png \
+    android/res/mipmap-hdpi/logo.png \
+    android/res/mipmap-ldpi/icon.png \
+    android/res/mipmap-ldpi/logo.png \
+    android/res/mipmap-mdpi/icon.png \
+    android/res/mipmap-mdpi/logo.png \
+    android/res/mipmap-xhdpi/icon.png \
+    android/res/mipmap-xhdpi/logo.png \
+    android/res/mipmap-xxhdpi/icon.png \
+    android/res/mipmap-xxhdpi/logo.png \
+    android/res/mipmap-xxxhdpi/icon.png \
+    android/res/mipmap-xxxhdpi/logo.png \
+    android/gradle/wrapper/gradle-wrapper.properties \
+    android/build.gradle \
+    android/gradlew.bat \
+    android/gradle.properties \
+    android/local.properties
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
