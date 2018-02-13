@@ -7,3 +7,7 @@
 [submodule "3rdparty/kaidansf"]
 	path = 3rdparty/kaidansf
 	url = https://github.com/kaidanim/kaidansf
+[submodule "packaging"]
+	path = packaging
+	url = https://github.com/kaidanim/kaidan-packaging-deb
+	branch = 4.0.0
