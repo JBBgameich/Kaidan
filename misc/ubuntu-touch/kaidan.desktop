@@ -2,7 +2,7 @@
 Type=Application
 Version=1.0
 Name=Kaidan
-Exec=kaidan
+Exec=bin/kaidan
 Icon=kaidan
 Terminal=false
 X-Ubuntu-Touch=true

@@ -3,6 +3,7 @@
     "description": "Simple and user-friendly Jabber/XMPP client for every device ",
     "architecture": "armhf",
     "title": "Kaidan",
+    "framework": "ubuntu-sdk-16.04",
     "hooks": {
         "kaidan": {
             "desktop": "kaidan.desktop",
