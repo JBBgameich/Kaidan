@@ -17,6 +17,6 @@ elif [ $BUILD_SYSTEM == "qmake" ]; then
 	lrelease ../Kaidan.pro
 	qmake "QMAKE_CXX=ccache g++" ..
 	make -j$(nproc)
-if [ $BUILD_VARIANT == "click" ]; then
+elif [ $BUILD_VARIANT == "click" ]; then
 	clickable
 fi
