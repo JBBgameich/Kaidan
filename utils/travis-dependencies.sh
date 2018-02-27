@@ -18,7 +18,7 @@ if ! [ -z $BUILD_SYSTEM ]; then
 fi
 
 # Clickable repository
-if [ BUILD_VARIANT == "click" ]; then
+if [ $BUILD_VARIANT == "click" ]; then
 	sudo add-apt-repository ppa:bhdouglass/clickable
 fi
 
@@ -47,7 +47,7 @@ if ! [ -z $BUILD_SYSTEM ]; then
 	sudo apt install -f -y
 fi
 
-if [ BUILD_VARIANT == "click" ]; then
+if [ $BUILD_VARIANT == "click" ]; then
 	sudo apt-get install clickable
 	clickable setup-docker
 fi
