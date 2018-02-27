@@ -19,7 +19,7 @@ fi
 
 # Clickable repository
 if [ $BUILD_VARIANT == "click" ]; then
-	sudo add-apt-repository ppa:bhdouglass/clickable
+	sudo add-apt-repository ppa:bhdouglass/clickable -y
 fi
 
 # Refresh package lists
