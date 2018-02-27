@@ -3,6 +3,8 @@ compiler: gcc
 cache: ccache
 sudo: required
 dist: trusty
+services:
+  - docker
 install:
   - ./utils/travis-dependencies.sh
 script:
@@ -13,5 +15,6 @@ matrix:
   include:
     - env: BUILD_SYSTEM=qmake
     - env: BUILD_SYSTEM=cmake
+    - env: BUILD_VARIANT=click
 notifications:
   email: false
