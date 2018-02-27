@@ -18,5 +18,5 @@ elif [ $BUILD_SYSTEM == "qmake" ]; then
 	qmake "QMAKE_CXX=ccache g++" ..
 	make -j$(nproc)
 elif [ $BUILD_VARIANT == "click" ]; then
-	clickable
+	cd ..; clickable build click-build
 fi
