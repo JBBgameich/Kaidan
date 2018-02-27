@@ -70,8 +70,8 @@ rm -r \
 	$KAIDAN_SOURCES/bin/ubuntu-touch/usr/lib/arm-linux-gnueabihf/cmake/ \
 	$KAIDAN_SOURCES/bin/ubuntu-touch/usr/lib/arm-linux-gnueabihf/pkgconfig/
 
-# # Move everything from usr/ to parent dir
-# mv $KAIDAN_SOURCES/bin/ubuntu-touch/usr/* $KAIDAN_SOURCES/bin/ubuntu-touch/
+# Move everything from usr/ to parent dir
+mv $KAIDAN_SOURCES/bin/ubuntu-touch/usr/* $KAIDAN_SOURCES/bin/ubuntu-touch/
 
 cd $CLICK_TARGET_DIR
 
