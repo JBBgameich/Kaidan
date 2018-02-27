@@ -9,7 +9,6 @@ install:
   - ./utils/travis-dependencies.sh
 script:
   - cd utils
-  - source /opt/qt*/bin/qt*-env.sh
   - ./travis-build.sh
 matrix:
   include:
