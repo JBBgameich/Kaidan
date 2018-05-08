@@ -16,7 +16,7 @@ if [[ ${PLATFORM} == "ubuntu-touch" ]]; then
 	clickable clean build click-build
 elif [[ ${PLATFORM} == "appimage" ]]; then
 	cd ${TRAVIS_BUILD_DIR}/utils
-	./../build-appimage.sh
+	./build-appimage.sh
 elif [[ ${BUILD_SYSTEM} == "cmake" ]]; then
 	cmake .. \
 	      -GNinja \

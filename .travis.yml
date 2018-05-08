@@ -22,7 +22,7 @@ matrix:
       git:
         submodules: false
 
-    - env: PLATFORM=appimage
+    - env: PLATFORM=appimage BUILD_SYSTEM=cmake
       git:
         submodules: false
 
