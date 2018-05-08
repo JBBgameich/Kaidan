@@ -22,6 +22,10 @@ matrix:
       git:
         submodules: false
 
+    - env: PLATFORM=appimage
+      git:
+        submodules: false
+
     - env: PLATFORM=ubuntu-touch
       git:
         submodules: false
