@@ -179,7 +179,10 @@ int main(int argc, char *argv[])
 #endif
 
 #ifdef UBUNTU_TOUCH
-       qputenv("QT_AUTO_SCREEN_SCALE_FACTOR", "true");
+	qputenv("QT_AUTO_SCREEN_SCALE_FACTOR", "true");
+
+	// Workaround for missing environment variables on Ubuntu Touch
+	qputenv("QT_QUICK_CONTROLS_MOBILE", "true");
 #endif
 
 	// QML type bindings
