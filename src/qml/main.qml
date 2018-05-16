@@ -100,8 +100,6 @@ Kirigami.ApplicationWindow {
 
 		// replace page with roster page
 		pageStack.replace(rosterPage)
-		if (!Kirigami.Settings.isMobile)
-			pageStack.push(emptyChatPage)
 	}
 
 	function handleSubRequest(from, message) {
@@ -121,8 +119,6 @@ Kirigami.ApplicationWindow {
 
 		// push roster page (trying normal start up)
 		pageStack.push(rosterPage)
-		if (!Kirigami.Settings.isMobile)
-			pageStack.push(emptyChatPage)
 		// Annouce that we're ready and the back-end can start with connecting
 		kaidan.start()
 	}

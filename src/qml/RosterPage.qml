@@ -60,6 +60,7 @@ Kirigami.ScrollablePage {
 	}
 
 	ListView {
+		id: rosterList
 		verticalLayoutDirection: ListView.TopToBottom
 		model: kaidan.rosterModel
 		delegate: RosterListItem {
@@ -95,4 +96,10 @@ Kirigami.ScrollablePage {
 			]
 		}
 	}
+
+	Component.onCompleted: {
+		if (!Kirigami.Settings.isMobile && rosterList.count !== 0)
+			pageStack.push(emptyChatPage)
+	}
+
 }
