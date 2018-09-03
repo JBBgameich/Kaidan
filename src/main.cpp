@@ -32,11 +32,10 @@
 #include <QCommandLineParser>
 #include <QCommandLineOption>
 #include <QDebug>
-#if HAVE_QWIDGETS
-#include <QApplication>
-#else
-#include <QGuiApplication>
+#ifndef QAPPLICATION_CLASS
+  #define QAPPLICATION_CLASS QApplication
 #endif
+#include QT_STRINGIFY(QAPPLICATION_CLASS)
 #include <QLocale>
 #include <qqml.h>
 #include <QQmlApplicationEngine>
