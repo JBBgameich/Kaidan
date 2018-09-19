@@ -31,7 +31,7 @@
 import QtQuick 2.7
 import QtQuick.Layouts 1.1
 import org.kde.kirigami 2.0 as Kirigami
-import Qt.labs.folderlistmodel 2.11
+import Qt.labs.folderlistmodel 2.1
 
 Item {
 	id: root
@@ -39,7 +39,7 @@ Item {
 	property url fileUrl
 	property string title
 	signal accepted
-//	property alias nameFilter: fileModel.nameFilters
+	property string nameFilter
 
 	Component {
 		id: fileChooserPage
@@ -65,6 +65,7 @@ Item {
 
 			FolderListModel {
 				id: fileModel
+				nameFilters: root.nameFilter
 				showDirsFirst: true
 				showDotAndDotDot: false // replaced by the main action Button
 				showOnlyReadable: true

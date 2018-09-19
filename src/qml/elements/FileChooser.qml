@@ -56,7 +56,7 @@ Item {
 		else if (Kirigami.Settings.isMobile) {
 			fileChooserLoader.setSource("FileChooserMobile.qml",
 			{
-				"nameFilters": filter,
+				"nameFilter": filter,
 				"title": title
 			})
 		}
