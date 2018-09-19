@@ -100,7 +100,7 @@ Item {
 		}
 	}
 
-	function openFileDialog() {
+	function open() {
 		pageStack.push(fileChooserPage)
 	}
 }

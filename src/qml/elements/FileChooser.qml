@@ -45,7 +45,7 @@ Item {
 	}
 
 	function open() {
-		fileChooserLoader.item.openFileDialog()
+		fileChooserLoader.item.open()
 	}
 
 	Component.onCompleted: {

@@ -51,7 +51,6 @@ Kirigami.ScrollablePage {
 		onAccepted: {
 			// TODO: Add sheet for entering description, maybe later also image cropping
 			kaidan.sendFile(recipientJid, fileUrl, "")
-			console.log("Tried to send file " + fileUrl)
 		}
 
 	}

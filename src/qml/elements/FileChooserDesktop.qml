@@ -44,8 +44,4 @@ FileDialog {
 	]
 	// TODO: support multiple files
 	// Currently the problem is that the fileUrls list isn't cleared
-	
-	function openFileDialog() {
-		fileDialog.open()
-	}
 }
