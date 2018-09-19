@@ -45,22 +45,30 @@ Kirigami.ScrollablePage {
 	title: chatName
 	keyboardNavigationEnabled: true
 
-	FileDialog {
-		id: fileDialog
-		title: qsTr("Please choose a file to upload")
-		folder: shortcuts.home
-		nameFilters: [
-			"Images (*.jpg *.jpeg *.png *.gif)",
-			"Videos (*.mp4 *.mkv *.avi *.webm)",
-			"Audio files (*.mp3 *.wav *.flac *.ogg *.m4a *.mka)",
-			"Documents (*.doc *.docx *.odt)",
-			"All files (*)"
-		]
-		// TODO: support multiple files
-		// Currently the problem is that the fileUrls list isn't cleared
-		onAccepted: {
-			// TODO: Add sheet for entering description, maybe later also image cropping
-			kaidan.sendFile(recipientJid, fileUrl, "")
+	// Platform intependent file chooser
+	Loader {
+		id: fileChooserLoader
+	}
+
+	property alias fileChooserloaderItem: fileChooserLoader.item
+
+	function openFileDialog(filterName, filter) {
+		fileChooserloaderItem.openFileDialog(filterName, filter)
+		mediaDrawer.close()
+	}
+
+	Component.onCompleted: {
+		if (kaidan.platform == "ubuntu-touch") {
+			fileChooserLoader.setSource("elements/FileChooserUbuntuTouch.qml")
+		}
+		else if (Kirigami.Settings.isMobile) {
+			fileChooserLoader.setSource("elements/FileChooserMobile.qml")
+		}
+		else if (!Kirigami.Settings.isMobile) {
+			fileChooserLoader.setSource("elements/FileChooserDesktop.qml")
+		}
+		else {
+			fileChooserLoader.setSource("elements/FileChooserMobile.qml")
 		}
 	}
 
@@ -75,31 +83,31 @@ Kirigami.ScrollablePage {
 			IconButton {
 				buttonText: qsTr("Image")
 				iconSource: "image-jpeg"
-				onClicked: openFileDialog("Images (*.jpg *.jpeg *.png *.gif)")
+				onClicked: openFileDialog("Images", "*.jpg *.jpeg *.png *.gif")
 				Layout.alignment: Qt.AlignHCenter
 			}
 			IconButton {
 				buttonText: qsTr("Video")
 				iconSource: "video-mp4"
-				onClicked: openFileDialog("Videos (*.mp4 *.mkv *.avi *.webm)")
+				onClicked: openFileDialog("Videos", "*.mp4 *.mkv *.avi *.webm")
 				Layout.alignment: Qt.AlignHCenter
 			}
 			IconButton {
 				buttonText: qsTr("Audio")
 				iconSource: "audio-mp3"
-				onClicked: openFileDialog("Audio files (*.mp3 *.wav *.flac *.ogg *.m4a *.mka)")
+				onClicked: openFileDialog("Audio files", "*.mp3 *.wav *.flac *.ogg *.m4a *.mka")
 				Layout.alignment: Qt.AlignHCenter
 			}
 			IconButton {
 				buttonText: qsTr("Document")
 				iconSource: "x-office-document"
-				onClicked: openFileDialog("Documents (*.doc *.docx *.odt)")
+				onClicked: openFileDialog("Documents", "*.doc *.docx *.odt")
 				Layout.alignment: Qt.AlignHCenter
 			}
 			IconButton {
 				buttonText: qsTr("Other file")
 				iconSource: "text-x-plain"
-				onClicked: openFileDialog("All files (*)")
+				onClicked: openFileDialog("All files", "*")
 				Layout.alignment: Qt.AlignHCenter
 			}
 
@@ -174,7 +182,7 @@ Kirigami.ScrollablePage {
 					if (Kirigami.Settings.isMobile)
 						mediaDrawer.open()
 					else
-						openFileDialog("All files (*)")
+						openFileDialog("All files", "(*)")
 				}
 			}
 
@@ -233,11 +241,5 @@ Kirigami.ScrollablePage {
 				}
 			}
 		}
-	}
-
-	function openFileDialog(filter) {
-		fileDialog.selectedNameFilter = filter
-		fileDialog.open()
-		mediaDrawer.close()
 	}
 }
