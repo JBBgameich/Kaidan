@@ -32,10 +32,13 @@ import QtQuick 2.6
 import org.kde.kirigami 2.0 as Kirigami
 
 Item {
+	id: root
+
 	property string filter: "*"
 	property string filterName: "All files"
 	property string fileUrl
 	property bool selectFolder: false
+	signal accepted
 
 	Loader {
 		id: fileChooserLoader
@@ -43,7 +46,6 @@ Item {
 
 	function open() {
 		fileChooserLoader.item.openFileDialog()
-		fileUrl = fileChooserLoader.item.url
 	}
 
 	Component.onCompleted: {
@@ -66,6 +68,15 @@ Item {
 		}
 		else {
 			fileChooserLoader.setSource("FileChooserMobile.qml")
+		}
+	}
+
+	Connections {
+		target: fileChooserLoader.item
+		onAccepted: {
+			fileUrl = fileChooserLoader.item.fileUrl
+			root.accepted()
+			console.log("Child file dialog accepted. URL: " + fileUrl)
 		}
 	}
 }

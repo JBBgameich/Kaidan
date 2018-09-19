@@ -32,8 +32,6 @@ import QtQuick 2.6
 import QtQuick.Dialogs 1.2
 
 FileDialog {
-	property alias url: fileDialog.fileUrl
-
 	id: fileDialog
 	title: qsTr("Please choose a file to upload")
 	folder: shortcuts.home
@@ -46,10 +44,6 @@ FileDialog {
 	]
 	// TODO: support multiple files
 	// Currently the problem is that the fileUrls list isn't cleared
-// 	onAccepted: {
-// 		// TODO: Add sheet for entering description, maybe later also image cropping
-// 		kaidan.sendFile(recipientJid, fileUrl, "")
-// 	}
 	
 	function openFileDialog() {
 		fileDialog.open()

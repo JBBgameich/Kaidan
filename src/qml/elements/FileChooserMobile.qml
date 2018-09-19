@@ -34,7 +34,10 @@ import org.kde.kirigami 2.0 as Kirigami
 import Qt.labs.folderlistmodel 2.11
 
 Item {
-	property url url
+	id: root
+
+	property url fileUrl
+	signal accepted
 //	property alias nameFilter: fileModel.nameFilters
 
 	Component {
@@ -87,7 +90,8 @@ Item {
 							else
 								fileModel.folder = filePath
 						} else {
-							url = filePath
+							fileUrl = filePath
+							root.accepted()
 							pageStack.pop()
 						}
 					}
