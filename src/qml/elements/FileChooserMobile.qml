@@ -88,9 +88,9 @@ Item {
 							else if (fileName === ".")
 								return
 							else
-								fileModel.folder = filePath
+								fileModel.folder = "file://" + filePath
 						} else {
-							fileUrl = filePath
+							root.fileUrl = filePath
 							root.accepted()
 							pageStack.pop()
 						}
