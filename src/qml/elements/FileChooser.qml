@@ -29,29 +29,35 @@
  */
 
 import QtQuick 2.6
-import QtQuick.Dialogs 1.2
+import org.kde.kirigami 2.0 as Kirigami
 
-FileDialog {
-	property alias url: fileDialog.fileUrl
+Item {
+	property string filter: "*"
+	property string filterName: "All files"
+	property string fileUrl
 
-	id: fileDialog
-	title: qsTr("Please choose a file to upload")
-	folder: shortcuts.home
-	nameFilters: [
-		"Images (*.jpg *.jpeg *.png *.gif)",
-		"Videos (*.mp4 *.mkv *.avi *.webm)",
-		"Audio files (*.mp3 *.wav *.flac *.ogg *.m4a *.mka)",
-		"Documents (*.doc *.docx *.odt)",
-		"All files (*)"
-	]
-	// TODO: support multiple files
-	// Currently the problem is that the fileUrls list isn't cleared
-// 	onAccepted: {
-// 		// TODO: Add sheet for entering description, maybe later also image cropping
-// 		kaidan.sendFile(recipientJid, fileUrl, "")
-// 	}
-	
-	function openFileDialog() {
-		fileDialog.open()
+	Loader {
+		id: fileChooserLoader
+	}
+
+	function open() {
+		fileChooserLoader.item.openFileDialog()
+		fileUrl = fileChooserLoader.item.url
+	}
+
+	Component.onCompleted: {
+		if (kaidan.platform == "ubuntu-touch") {
+			fileChooserLoader.setSource("FileChooserUbuntuTouch.qml")
+		}
+		else if (Kirigami.Settings.isMobile) {
+			fileChooserLoader.setSource("FileChooserMobile.qml", { "nameFilters": filter })
+		}
+		else if (!Kirigami.Settings.isMobile) {
+			var selectedNameFilter = filterName + " (" + filter + ")"
+			fileChooserLoader.setSource("FileChooserDesktop.qml", { "selectedNameFilter": selectedNameFilter })
+		}
+		else {
+			fileChooserLoader.setSource("FileChooserMobile.qml")
+		}
 	}
 }

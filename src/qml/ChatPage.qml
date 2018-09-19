@@ -45,31 +45,15 @@ Kirigami.ScrollablePage {
 	title: chatName
 	keyboardNavigationEnabled: true
 
-	// Platform intependent file chooser
-	Loader {
-		id: fileChooserLoader
+	FileChooser {
+		id: fileChooser
 	}
-
-	property alias fileChooserloaderItem: fileChooserLoader.item
 
 	function openFileDialog(filterName, filter) {
-		fileChooserloaderItem.openFileDialog(filterName, filter)
+		fileChooser.filterName = filterName
+		fileChooser.filter = filter
+		fileChooser.open()
 		mediaDrawer.close()
-	}
-
-	Component.onCompleted: {
-		if (kaidan.platform == "ubuntu-touch") {
-			fileChooserLoader.setSource("elements/FileChooserUbuntuTouch.qml")
-		}
-		else if (Kirigami.Settings.isMobile) {
-			fileChooserLoader.setSource("elements/FileChooserMobile.qml")
-		}
-		else if (!Kirigami.Settings.isMobile) {
-			fileChooserLoader.setSource("elements/FileChooserDesktop.qml")
-		}
-		else {
-			fileChooserLoader.setSource("elements/FileChooserMobile.qml")
-		}
 	}
 
 	Kirigami.OverlayDrawer {

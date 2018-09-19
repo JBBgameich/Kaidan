@@ -35,7 +35,7 @@ import Qt.labs.folderlistmodel 2.11
 
 Item {
 	property url url
-// 	property alias nameFilter: fileModel.nameFilters
+//	property alias nameFilter: fileModel.nameFilters
 
 	Component {
 		id: fileChooserPage
@@ -49,6 +49,12 @@ Item {
 					tooltip: qsTr("go to parent folder")
 					iconName: "go-parent-folder"
 					onTriggered: fileModel.folder = fileModel.parentFolder
+					enabled: true
+				}
+				right: Kirigami.Action {
+					tooltip: qsTr("Close")
+					iconName: "dialog-close"
+					onTriggered: pageStack.pop()
 					enabled: true
 				}
 			}
@@ -90,8 +96,7 @@ Item {
 		}
 	}
 
-	function openFileDialog(filterName, filter) {
-// 		nameFilter = filter
+	function openFileDialog() {
 		pageStack.push(fileChooserPage)
 	}
 }
