@@ -46,6 +46,7 @@ Kirigami.ScrollablePage {
 
 	FileChooser {
 		id: fileChooser
+		title: qsTr("Please choose a file to upload")
 
 		onAccepted: {
 			// TODO: Add sheet for entering description, maybe later also image cropping

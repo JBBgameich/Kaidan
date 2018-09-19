@@ -33,7 +33,6 @@ import QtQuick.Dialogs 1.2
 
 FileDialog {
 	id: fileDialog
-	title: qsTr("Please choose a file to upload")
 	folder: shortcuts.home
 	nameFilters: [
 		"Images (*.jpg *.jpeg *.png *.gif)",

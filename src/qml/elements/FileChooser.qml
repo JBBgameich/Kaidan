@@ -38,6 +38,7 @@ Item {
 	property string filterName: "All files"
 	property string fileUrl
 	property bool selectFolder: false
+	property string title: qsTr("Select File")
 	signal accepted
 
 	Loader {
@@ -55,7 +56,8 @@ Item {
 		else if (Kirigami.Settings.isMobile) {
 			fileChooserLoader.setSource("FileChooserMobile.qml",
 			{
-				"nameFilters": filter
+				"nameFilters": filter,
+				"title": title
 			})
 		}
 		else if (!Kirigami.Settings.isMobile) {
@@ -63,11 +65,12 @@ Item {
 			fileChooserLoader.setSource("FileChooserDesktop.qml",
 			{
 				"selectedNameFilter": selectedNameFilter,
-				"selectFolder": selectFolder
+				"selectFolder": selectFolder,
+				"title": title
 			})
 		}
 		else {
-			fileChooserLoader.setSource("FileChooserMobile.qml")
+			fileChooserLoader.setSource("FileChooserDesktop.qml")
 		}
 	}
 

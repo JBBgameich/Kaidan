@@ -37,6 +37,7 @@ Item {
 	id: root
 
 	property url fileUrl
+	property string title
 	signal accepted
 //	property alias nameFilter: fileModel.nameFilters
 
@@ -44,7 +45,7 @@ Item {
 		id: fileChooserPage
 
 		Kirigami.ScrollablePage {
-			title: qsTr("Open File")
+			title: root.title
 
 			actions {
 				main: Kirigami.Action {
