@@ -35,6 +35,7 @@ Item {
 	property string filter: "*"
 	property string filterName: "All files"
 	property string fileUrl
+	property bool selectFolder: false
 
 	Loader {
 		id: fileChooserLoader
@@ -50,11 +51,18 @@ Item {
 			fileChooserLoader.setSource("FileChooserUbuntuTouch.qml")
 		}
 		else if (Kirigami.Settings.isMobile) {
-			fileChooserLoader.setSource("FileChooserMobile.qml", { "nameFilters": filter })
+			fileChooserLoader.setSource("FileChooserMobile.qml",
+			{
+				"nameFilters": filter
+			})
 		}
 		else if (!Kirigami.Settings.isMobile) {
 			var selectedNameFilter = filterName + " (" + filter + ")"
-			fileChooserLoader.setSource("FileChooserDesktop.qml", { "selectedNameFilter": selectedNameFilter })
+			fileChooserLoader.setSource("FileChooserDesktop.qml",
+			{
+				"selectedNameFilter": selectedNameFilter,
+				"selectFolder": selectFolder
+			})
 		}
 		else {
 			fileChooserLoader.setSource("FileChooserMobile.qml")
