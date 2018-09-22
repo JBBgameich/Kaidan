@@ -50,10 +50,7 @@ Item {
 	}
 
 	Component.onCompleted: {
-		if (kaidan.platform == "ubuntu-touch") {
-			fileChooserLoader.setSource("FileChooserUbuntuTouch.qml")
-		}
-		else if (Kirigami.Settings.isMobile) {
+		if (Kirigami.Settings.isMobile) {
 			fileChooserLoader.setSource("FileChooserMobile.qml",
 			{
 				"nameFilter": filter,
