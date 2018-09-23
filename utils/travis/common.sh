@@ -115,6 +115,7 @@ install_ubuntu-touch_deps() {
 install_android_deps() {
 	sudo dpkg --add-architecture i386
 	sudo apt update
+	sudo apt purge postgresql* -y
 	sudo apt full-upgrade -y
 	sudo apt install -y --no-install-recommends \
 		        unzip \
