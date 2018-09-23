@@ -138,7 +138,8 @@ install_android_deps() {
 	# Download qt installer extractor
 	mkdir /tmp/qt/ -p
 	curl -o /tmp/qt/extract-qt-installer.sh \
-		https://raw.githubusercontent.com/rabits/dockerfiles/master/5.11-android/extract-qt-installer.sh
+		https://raw.githubusercontent.com/rabits/dockerfiles/master/5.11-android/extract-qt-installer.sh \
+		&& chmod +x /tmp/qt/extract-qt-installer.sh
 
 	# Download & unpack Qt toolchains & clean
 	curl -Lo /tmp/qt/installer.run "https://download.qt.io/official_releases/qt/$(echo "${QT_VERSION}" | cut -d. -f 1-2)/${QT_VERSION}/qt-opensource-linux-x64-${QT_VERSION}.run" \
