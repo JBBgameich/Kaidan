@@ -133,7 +133,7 @@ install_android_deps() {
 		        libncurses5:i386 \
 		        libstdc++6:i386 \
 		        libz1:i386
-	apt-get -qq clean
+	sudo apt-get -qq clean
 
 	# Download qt installer extractor
 	curl -o /tmp/qt/extract-qt-installer.sh \
