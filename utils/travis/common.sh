@@ -136,6 +136,7 @@ install_android_deps() {
 	sudo apt-get -qq clean
 
 	# Download qt installer extractor
+	mkdir /tmp/qt/ -p
 	curl -o /tmp/qt/extract-qt-installer.sh \
 		https://raw.githubusercontent.com/rabits/dockerfiles/master/5.11-android/extract-qt-installer.sh
 
