@@ -15,6 +15,8 @@ if [ ${PLATFORM} == "linux-desktop" ]; then
 	install_linux-desktop_deps
 elif [ ${PLATFORM} == "ubuntu-touch" ]; then
 	install_ubuntu-touch_deps
+elif [ ${PLATFORM} == "android" ]; then
+	install_android_deps
 else
 	echo "Can't build on \"${TRAVIS_OS_NAME}\""
 	exit 1

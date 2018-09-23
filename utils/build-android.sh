@@ -144,13 +144,13 @@ if [ ! -d "$KAIDAN_SOURCES/misc/android/res/mipmap-ldpi" ]; then
         inkscape -z -e $2 -w $3 -h $3 $1
         optipng -quiet $2
     }
-    
+
     androidlogo() {
         mkdir $KAIDAN_SOURCES/misc/android/res/mipmap-$1
         rendersvg $KAIDAN_SOURCES/misc/kaidan-small-margin.svg "$KAIDAN_SOURCES/misc/android/res/mipmap-$1/icon.png" $2
         rendersvg $KAIDAN_SOURCES/misc/kaidan-small-margin.svg "$KAIDAN_SOURCES/misc/android/res/mipmap-$1/logo.png" $(( $2 * 4 ))
     }
-    
+
     androidlogo ldpi 36
     androidlogo mdpi 48
     androidlogo hdpi 72
@@ -182,7 +182,7 @@ if [ ! -z "$INSTALL" ]; then
     echo "*****************************************"
     echo "Installing to device"
     echo "*****************************************"
-    
+
     cd $KAIDAN_SOURCES/build
     make install-apk-kaidan
 fi

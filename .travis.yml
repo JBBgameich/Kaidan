@@ -23,8 +23,9 @@ matrix:
         submodules: false
 
     - env: PLATFORM=ubuntu-touch
-      git:
-        submodules: false
+
+    - env: PLATFORM=android
+
       # only cache apt archives
       cache:
         directories:

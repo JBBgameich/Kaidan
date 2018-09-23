@@ -14,6 +14,26 @@ fi
 
 if [[ ${PLATFORM} == "ubuntu-touch" ]]; then
 	export BUILD_SYSTEM="cmake"
+elif [[ ${PLATFORM} == "android" ]]; then
+	# Packages
+	export QT_VERSION=5.11.0
+	export NDK_VERSION=r16b
+	export SDK_PLATFORM=android-21
+	export SDK_PACKAGES="tools platform-tools"
+
+	# Pathes
+	export QT_PATH=/opt/Qt
+	export QT_ANDROID=${QT_PATH}/${QT_VERSION}/android_armv7
+	export ANDROID_HOME=/opt/android-sdk
+	export ANDROID_SDK_ROOT=${ANDROID_HOME}
+	export ANDROID_NDK_ROOT=/opt/android-ndk
+	export ANDROID_NDK_TOOLCHAIN_PREFIX=arm-linux-androideabi
+	export ANDROID_NDK_TOOLCHAIN_VERSION=4.9
+	export ANDROID_NDK_HOST=linux-x86_64
+	export ANDROID_NDK_PLATFORM=${SDK_PLATFORM}
+	export ANDROID_NDK_TOOLS_PREFIX=${ANDROID_NDK_TOOLCHAIN_PREFIX}
+	export QMAKESPEC=android-g++
+	export PATH=${QT_ANDROID}/bin:${ANDROID_HOME}/tools:${ANDROID_HOME}/tools/bin:${ANDROID_HOME}/platform-tools:${PATH}
 elif [[ ${PLATFORM} == "" ]]; then
 	# currently there's only linux-desktop & ut
 	# otherwise other parameters (as TRAVIS_OS_NAME) could be checked
@@ -90,6 +110,49 @@ install_ubuntu-touch_deps() {
 	sudo apt-get update
 	sudo apt-get install clickable
 	clickable setup-docker
+}
+
+install_android_deps() {
+	sudo dpkg --add-architecture i386
+	sudo apt update
+	sudo apt full-upgrade -y
+	sudo apt install -y --no-install-recommends \
+		        unzip \
+		        curl \
+		        make \
+		        default-jdk \
+		        ant \
+		        libsm6 \
+		        libice6 \
+		        libxext6 \
+		        libxrender1 \
+		        libfontconfig1 \
+		        libdbus-1-3 \
+		        libc6:i386 \
+		        libncurses5:i386 \
+		        libstdc++6:i386 \
+		        libz1:i386
+	apt-get -qq clean
+
+	# Download qt installer extractor
+	curl -o /tmp/qt/extract-qt-installer.sh \
+		https://raw.githubusercontent.com/rabits/dockerfiles/master/5.11-android/extract-qt-installer.sh
+
+	# Download & unpack Qt toolchains & clean
+	curl -Lo /tmp/qt/installer.run "https://download.qt.io/official_releases/qt/$(echo "${QT_VERSION}" | cut -d. -f 1-2)/${QT_VERSION}/qt-opensource-linux-x64-${QT_VERSION}.run" \
+		&& QT_CI_PACKAGES=qt.qt5.$(echo "${QT_VERSION}" | tr -d .).android_armv7 /tmp/qt/extract-qt-installer.sh /tmp/qt/installer.run "$QT_PATH" \
+		&& find "${QT_PATH}" -mindepth 1 -maxdepth 1 ! -name "${QT_VERSION}" -exec echo 'Cleaning Qt SDK: {}' \; -exec rm -r '{}' \; \
+		&& rm -rf /tmp/qt
+
+	# Download & unpack android SDK
+	curl -Lo /tmp/sdk-tools.zip 'https://dl.google.com/android/repository/sdk-tools-linux-3859397.zip' \
+		&& mkdir -p /opt/android-sdk && unzip -q /tmp/sdk-tools.zip -d /opt/android-sdk && rm -f /tmp/sdk-tools.zip \
+		&& yes | sdkmanager --licenses && sdkmanager --verbose "platforms;${SDK_PLATFORM}" "build-tools;${SDK_BUILD_TOOLS}" ${SDK_PACKAGES}
+
+	# Download & unpack android NDK
+	mkdir /tmp/android && cd /tmp/android && curl -Lo ndk.zip "https://dl.google.com/android/repository/android-ndk-${NDK_VERSION}-linux-x86_64.zip" \
+		&& unzip -q ndk.zip && mv android-ndk-* $ANDROID_NDK_ROOT && chmod -R +rX $ANDROID_NDK_ROOT \
+		&& rm -rf /tmp/android
 }
 
 env_setup() {
