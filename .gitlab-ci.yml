@@ -61,6 +61,15 @@ click-xenial:
       - "*.click"
     expire_in: 1 week
 
+windows-mxe:
+  stage: build
+  image: kaidan/windows-mxe
+  script: utils/build-windows-mxe.sh
+  artifacts:
+    paths:
+      - "build/bin/kaidan.exe"
+    expire_in: 1 week
+
 variables:
   GIT_SUBMODULE_STRATEGY: recursive
   BUILD_SYSTEM: cmake
