@@ -64,10 +64,12 @@ click-xenial:
 windows-mxe:
   stage: build
   image: kaidan/windows-mxe
-  script: utils/build-windows-mxe.sh
+  script:
+    - utils/build-windows-mxe.sh
+    - mv build/bin/kaidan.exe kaidan.exe
   artifacts:
     paths:
-      - "build/bin/kaidan.exe"
+      - "kaidan.exe"
     expire_in: 1 week
 
 variables:
