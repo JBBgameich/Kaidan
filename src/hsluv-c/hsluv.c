@@ -207,10 +207,7 @@ rgb2xyz(Triplet* in_out)
 static double
 y2l(double y)
 {
-    if(y <= epsilon)
-        return y * kappa;
-    else
-        return 116.0 * cbrt(y) - 16.0;
+    return y * kappa;
 }
 
 static double
