@@ -62,7 +62,7 @@ click-xenial:
     expire_in: 1 week
 
 windows-mxe:
-  stage: build
+  stage: deploy
   image: kaidan/windows-mxe
   script:
     - utils/build-windows-mxe.sh
