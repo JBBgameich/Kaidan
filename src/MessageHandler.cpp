@@ -92,7 +92,8 @@ MessageHandler::~MessageHandler()
 void MessageHandler::handleMessage(const QXmppMessage &msg)
 {
 	bool isCarbonMessage = false;
-
+    
+    QXmppElementList extensions;
 	if (msg.body().isEmpty())
 		return;
 
@@ -101,7 +102,16 @@ void MessageHandler::handleMessage(const QXmppMessage &msg)
 	entry.recipient = QXmppUtils::jidToBareJid(msg.to());
 	entry.id = msg.id();
 	entry.sentByMe = (entry.author == client->configuration().jidBare());
-	entry.message = msg.body();
+    entry.message = msg.body();
+    extensions = msg.extensions();
+    entry.isSpoiler = false;
+    for (const QXmppElement &extension : extensions){
+        if (extension.tagName() == "spoiler"){
+            entry.isSpoiler = true;
+            entry.spoilerHint = extension.value();
+            break;
+        }
+    }
 	entry.type = MessageType::MessageText; // default to text message without media
 
 	// check if message contains a link and also check out of band url
@@ -183,6 +193,7 @@ void MessageHandler::sendMessage(QString toJid, QString body)
 	}
 
 	MessageModel::Message msg;
+    msg.isSpoiler = false;
 	msg.author = client->configuration().jidBare();
 	msg.recipient = toJid;
 	msg.id = QXmppUtils::generateStanzaHash(48);

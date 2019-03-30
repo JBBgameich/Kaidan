@@ -139,6 +139,9 @@ Kirigami.ScrollablePage {
 			isLastMessage: model.id === kaidan.messageModel.lastMessageId(recipientJid)
 			textEdit: messageField
 			edited: model.edited
+			isSpoiler: model.isSpoiler
+			isShowingSpoiler: false
+			spoilerHint: model.spoilerHint
 		}
 	}
 
