@@ -68,11 +68,11 @@ Kirigami.ScrollablePage {
 
 	Kirigami.OverlayDrawer {
 		id: mediaDrawer
+		height: Kirigami.Units.gridUnit * 7
 		edge: Qt.BottomEdge
 		contentItem: RowLayout {
 			id: content
 			Layout.alignment: Qt.AlignHCenter
-			Layout.fillHeight: true
 
 			IconButton {
 				buttonText: qsTr("Image")
