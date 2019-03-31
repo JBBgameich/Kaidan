@@ -92,7 +92,8 @@ MessageHandler::~MessageHandler()
 void MessageHandler::handleMessage(const QXmppMessage &msg)
 {
 	bool isCarbonMessage = false;
-
+    
+    QXmppElementList extensions;
 	if (msg.body().isEmpty())
 		return;
 
@@ -101,7 +102,16 @@ void MessageHandler::handleMessage(const QXmppMessage &msg)
 	entry.recipient = QXmppUtils::jidToBareJid(msg.to());
 	entry.id = msg.id();
 	entry.sentByMe = (entry.author == client->configuration().jidBare());
-	entry.message = msg.body();
+    entry.message = msg.body();
+    extensions = msg.extensions();
+    entry.isSpoiler = false;
+    for (const QXmppElement &extension : extensions){
+        if (extension.tagName() == "spoiler"){
+            entry.isSpoiler = true;
+            entry.spoilerHint = extension.value();
+            break;
+        }
+    }
 	entry.type = MessageType::MessageText; // default to text message without media
 
 	// check if message contains a link and also check out of band url
@@ -170,7 +180,7 @@ void MessageHandler::handleMessage(const QXmppMessage &msg)
 		                                       msg.body().toStdString());
 }
 
-void MessageHandler::sendMessage(QString toJid, QString body)
+void MessageHandler::sendMessage(QString toJid, QString body, bool isSpoiler, QString spoilerHint)
 {
 	// TODO: Add offline message cache and send when connnected again
 	if (client->state() != QXmppClient::ConnectedState) {
@@ -183,6 +193,8 @@ void MessageHandler::sendMessage(QString toJid, QString body)
 	}
 
 	MessageModel::Message msg;
+    msg.isSpoiler = isSpoiler;
+	msg.spoilerHint = spoilerHint.isEmpty() ? "" : spoilerHint;
 	msg.author = client->configuration().jidBare();
 	msg.recipient = toJid;
 	msg.id = QXmppUtils::generateStanzaHash(48);
@@ -196,6 +208,15 @@ void MessageHandler::sendMessage(QString toJid, QString body)
 	QXmppMessage m(msg.author, msg.recipient, body);
 	m.setId(msg.id);
 	m.setReceiptRequested(true);
+	if (isSpoiler) {
+		QXmppElementList extensions = m.extensions();
+		QXmppElement spoiler = QXmppElement();
+		spoiler.setTagName("spoiler");
+		spoiler.setValue(msg.spoilerHint);
+		spoiler.setAttribute("xmlns", "urn:xmpp:spoiler:0");
+		extensions.append(spoiler);
+		m.setExtensions(extensions);
+	}
 
 	bool success = client->sendPacket(m);
 	if (success)
