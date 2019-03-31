@@ -180,7 +180,7 @@ void MessageHandler::handleMessage(const QXmppMessage &msg)
 		                                       msg.body().toStdString());
 }
 
-void MessageHandler::sendMessage(QString toJid, QString body)
+void MessageHandler::sendMessage(QString toJid, QString body, bool isSpoiler, QString spoilerHint)
 {
 	// TODO: Add offline message cache and send when connnected again
 	if (client->state() != QXmppClient::ConnectedState) {
@@ -193,7 +193,8 @@ void MessageHandler::sendMessage(QString toJid, QString body)
 	}
 
 	MessageModel::Message msg;
-    msg.isSpoiler = false;
+    msg.isSpoiler = isSpoiler;
+	msg.spoilerHint = spoilerHint.isEmpty() ? "" : spoilerHint;
 	msg.author = client->configuration().jidBare();
 	msg.recipient = toJid;
 	msg.id = QXmppUtils::generateStanzaHash(48);
@@ -207,6 +208,15 @@ void MessageHandler::sendMessage(QString toJid, QString body)
 	QXmppMessage m(msg.author, msg.recipient, body);
 	m.setId(msg.id);
 	m.setReceiptRequested(true);
+	if (isSpoiler) {
+		QXmppElementList extensions = m.extensions();
+		QXmppElement spoiler = QXmppElement();
+		spoiler.setTagName("spoiler");
+		spoiler.setValue(msg.spoilerHint);
+		spoiler.setAttribute("xmlns", "urn:xmpp:spoiler:0");
+		extensions.append(spoiler);
+		m.setExtensions(extensions);
+	}
 
 	bool success = client->sendPacket(m);
 	if (success)
