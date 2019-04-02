@@ -7,7 +7,7 @@ cache:
   directories:
     - /var/cache/apt/archives
 sudo: required
-dist: trusty
+dist: bionic
 install:
   - ./utils/travis/dependencies.sh
 script:
