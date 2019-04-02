@@ -30,55 +30,36 @@ echo_env() {
 add_linux-desktop_apt_repos() {
 	sudo apt-get install dirmngr
 
-	# trusty backports
-	sudo bash -c "echo deb http://archive.ubuntu.com/ubuntu trusty-backports main restricted universe multiverse >> /etc/apt/sources.list"
+	# bionic backports
+	sudo bash -c "echo deb http://archive.ubuntu.com/ubuntu bionic main restricted universe multiverse >> /etc/apt/sources.list"
+	sudo bash -c "echo deb http://archive.ubuntu.com/ubuntu bionic-backports main restricted universe multiverse >> /etc/apt/sources.list"
 
-	# Qt 5.9 repository
-	sudo add-apt-repository -y ppa:beineri/opt-qt-5.10.1-trusty
+	sudo apt update
+
+	# Qt 5.12 repository
+	sudo add-apt-repository -y ppa:beineri/opt-qt-5.12.2-xenial
 }
 
 add_ubuntu-touch_apt_repos() {
 	sudo add-apt-repository ppa:bhdouglass/clickable -y
 }
 
-install_kf5() {
-	wget -c "https://github.com/kf5builds/precompiled-kf5-linux/releases/download/kf5.50/kf5-5.50.0-Release-ubuntu-trusty-amd64.tar.xz"
-	mkdir /tmp/kf5
-	tar xf kf5-5.50.0-Release-ubuntu-trusty-amd64.tar.xz -C /tmp/kf5
-	sudo cp -rf /tmp/kf5/* /opt/qt*/
-}
-
-install_gloox() {
-	# download
-	wget -c "https://github.com/JBBgameich/precompiled-kf5-linux/releases/download/KF5.40/libgloox17_1.0.20-1_amd64.deb"
-	wget -c "https://github.com/JBBgameich/precompiled-kf5-linux/releases/download/KF5.40/libgloox-dev_1.0.20-1_amd64.deb"
-
-	# install debs and install possible missing dependencies
-	sudo dpkg -i libgloox*.deb || sudo apt-get -f -y install
-
-	# clean up
-	rm libgloox*.deb
-}
-
 install_linux-desktop_deps() {
 	add_linux-desktop_apt_repos
 
 	sudo apt-get update
-	sudo apt-get install -y -t trusty-backports \
+	sudo apt-get install -y -t bionic-backports \
 	                     cmake \
 	                     build-essential \
 	                     ninja-build \
 	                     zlib1g-dev \
-	                     qt510base \
-	                     qt510script \
-	                     qt510declarative \
-	                     qt510tools \
-	                     qt510x11extras \
-	                     qt510svg \
-	                     qt510quickcontrols2
-
-	install_kf5
-	install_gloox
+	                     qt512base \
+	                     qt512script \
+	                     qt512declarative \
+	                     qt512tools \
+	                     qt512x11extras \
+	                     qt512svg \
+	                     qt512quickcontrols2
 }
 
 install_ubuntu-touch_deps() {
